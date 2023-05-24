@@ -1,4 +1,4 @@
-const jsPsych = initJsPsych();
+const jsPsych2 = initJsPsych();
 
 let timeline = [];
 
@@ -31,4 +31,4 @@ const instructions = {
   
   timeline.push(instructions);
 
-  jsPsych.run(timeline);
+  jsPsych2.run(timeline);
