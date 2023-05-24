@@ -40,19 +40,30 @@ const instructions = {
   
   timeline.push(instructions);
 
-
-  var blue_trial = {
-    type: jsPsychImageKeyboardResponse,
-    stimulus: 'img/blue.png',
-    choices: ['f', 'j']
-  };
+var test_stimuli = [
+    { stimulus: "img/blue.png"},
+    { stimulus: "img/orange.png"}
+  ];
   
-  var orange_trial = {
-    type: jsPsychImageKeyboardResponse,
-    stimulus: 'img/orange.png',
-    choices: ['f', 'j']
-  };
-  
-timeline.push(blue_trial, orange_trial);
 
+var fixation = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: '<div style="font-size:60px;">+</div>',
+    choices: "NO_KEYS",
+    trial_duration: 1000,
+  };  
+  
+var test = {
+    type: jsPsychImageKeyboardResponse,
+    stimulus: jsPsych.timelineVariable('stimulus'),
+    choices: ['f', 'j']
+  }
+  
+var test_procedure = {
+    timeline: [fixation, test],
+    timeline_variables: test_stimuli
+  }
+  
+  
+timeline.push(test_procedure);
 jsPsych.run(timeline);
