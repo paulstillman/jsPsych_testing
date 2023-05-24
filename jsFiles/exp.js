@@ -1,6 +1,15 @@
 const jsPsych2 = initJsPsych();
 
+
+
 let timeline = [];
+
+var preload = {
+    type: jsPsychPreload,
+    images: ['img/blue.png', 'img/orange.png']
+  };
+  
+timeline.push(preload)
 
 const welcome = {
     type: jsPsychHtmlKeyboardResponse,
@@ -30,5 +39,20 @@ const instructions = {
   };
   
   timeline.push(instructions);
+
+
+  var blue_trial = {
+    type: jsPsychImageKeyboardResponse,
+    stimulus: 'img/blue.png',
+    choices: ['f', 'j']
+  };
+  
+  var orange_trial = {
+    type: jsPsychImageKeyboardResponse,
+    stimulus: 'img/orange.png',
+    choices: ['f', 'j']
+  };
+  
+timeline.push(blue_trial, orange_trial);
 
   jsPsych2.run(timeline);
