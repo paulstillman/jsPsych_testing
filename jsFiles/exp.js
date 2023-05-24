@@ -55,4 +55,4 @@ const instructions = {
   
 timeline.push(blue_trial, orange_trial);
 
-  jsPsych2.run(timeline);
+jsPsych2.run(timeline);
