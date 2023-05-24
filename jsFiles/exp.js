@@ -1,4 +1,4 @@
-const jsPsych2 = initJsPsych();
+const jsPsych = initJsPsych();
 
 
 
@@ -55,4 +55,4 @@ const instructions = {
   
 timeline.push(blue_trial, orange_trial);
 
-jsPsych2.run(timeline);
+jsPsych.run(timeline);
