@@ -4,21 +4,45 @@ const jsPsych = initJsPsych({
   }
 });
 
-
-
 let timeline = [];
+
+
 
 var preload = {
     type: jsPsychPreload,
     images: ['img/blue.png', 'img/orange.png']
-  };
+};
   
 timeline.push(preload)
 
 const welcome = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: "Welcome to the experiment. Press any key to begin."
-  };
+    stimulus: `Welcome!`  
+};
+
+function createBoundedRectangle() {
+  var canvas = document.createElement("canvas");
+  canvas.className = "canvas";
+  canvas.width = 400;
+  canvas.height = 300;
+
+  var ctx = canvas.getContext("2d");
+  ctx.fillStyle = "blue";
+  ctx.fillRect(50, 50, 300, 200); // Adjust the coordinates and size as needed
+  return canvas;
+}
+
+var displayRectangleTrial = {
+  type: jsPsychImageKeyboardResponse,
+  stimulus: function() {
+    var canvas = createBoundedRectangle();
+    return canvas.outerHTML;
+  },
+  choices: 32 // Prevent keyboard input
+};
+
+timeline.push(displayRectangleTrial);
+
 
 
 timeline.push(welcome);
