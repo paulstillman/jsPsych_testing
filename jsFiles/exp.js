@@ -1,4 +1,8 @@
-const jsPsych = initJsPsych();
+const jsPsych = initJsPsych(
+  on_finish: function() {
+    jsPsych.data.displayData();
+  }
+);
 
 
 
