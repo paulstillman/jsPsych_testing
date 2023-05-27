@@ -65,9 +65,12 @@ var test = {
   
 var test_procedure = {
     timeline: [fixation, test],
-    timeline_variables: test_stimuli
-  }
+    timeline_variables: test_stimuli,
+    randomize_order: true,
+    repetitions: 5
+  };
   
-  
+
+
 timeline.push(test_procedure);
 jsPsych.run(timeline);
