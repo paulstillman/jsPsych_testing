@@ -71,6 +71,9 @@ var test = {
     data: {
       task: 'response',
       correct_response: jsPsych.timelineVariable('correct_response')
+    },
+    on_finish: function(data){
+      data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
     }
   }
   
@@ -84,4 +87,22 @@ var test_procedure = {
 
 
 timeline.push(test_procedure);
+
+var debrief_block = {
+  type: jsPsychHtmlKeyboardResponse,
+  stimulus: function() {
+
+    var trials = jsPsych.data.get().filter({task: 'response'});
+    var correct_trials = trials.filter({correct: true});
+    var accuracy = Math.round(correct_trials.count() / trials.count() * 100);
+    var rt = Math.round(correct_trials.select('rt').mean());
+
+    return `<p>You responded correctly on ${accuracy}% of the trials.</p>
+      <p>Your average response time was ${rt}ms.</p>
+      <p>Press any key to complete the experiment. Thank you!</p>`;
+
+  }
+};
+timeline.push(debrief_block);
+
 jsPsych.run(timeline);
