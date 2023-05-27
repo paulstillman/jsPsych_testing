@@ -46,12 +46,16 @@ var test_stimuli = [
   ];
   
 
-var fixation = {
+
+  var fixation = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: '<div style="font-size:60px;">+</div>',
     choices: "NO_KEYS",
-    trial_duration: 1000,
-  };  
+    trial_duration: function(){
+      return jsPsych.randomization.sampleWithoutReplacement([250, 500, 750, 1000, 1250, 1500, 1750, 2000], 1)[0];
+    }
+  }
+  
   
 var test = {
     type: jsPsychImageKeyboardResponse,
