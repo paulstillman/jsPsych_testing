@@ -2,6 +2,9 @@ const jsPsych = initJsPsych({
   on_finish: function () {
     jsPsych.data.displayData();
   },
+  on_data_update: function (data) {
+    console.log('Just added new data. The contents of the data are: ' + JSON.stringify(data));
+  },
   extensions: [
     { type: jsPsychExtensionMouseTracking, params: { minimum_sample_time: 0, events: ['mousemove', 'mouseleave'] } }
   ]
@@ -31,35 +34,93 @@ const stim_change_test = {
   type: jsPsychHtmlButtonResponsePES,
   stimulus: `<b> stim_temp </b>`,
   choices: ['button <br>1', 'button <br>2'],
-  adjust_aspect_ratio: 0,
+  adjust_aspect_ratio: false,
   button_html: ['<button class="jspsych-btn mt-response-btn" id="left_response" style = "position:absolute; left: 0px; top: 0px">%choice%</button>', '<button class="jspsych-btn mt-response-btn" id="right_response" style = "position:absolute; right:0px; top: 0px">%choice%</button>'],
   slowmouse_message: `Please begin moving your mouse<br>as soon as the image appears`,
   mouseout_message: `Please keep your mouse<br>in the browser window`,
-  data: {
-    task: 'MT'
-  },
   extensions: [
     { type: jsPsychExtensionMouseTracking }
   ]
+  /*on_load: function(trial) {
+    load_time = performance.now()
+    window.addEventListener("mousemove", function ({ clientX: x, clientY: y }) { 
+      event_t = performance.now()
+      console.log(`move: ${event_t}, load: ${load_time}`); // okay so one hack would be  to check if the out is occuring outside of the bounds of the screen. that's not ideal though
+    });*/
+  /*
+  trial.stimulus = 'Let us see if this works'; // this will change what stimulus is displayed in the trial
+  window.addEventListener("mousemove", function ({ clientX: x, clientY: y }) { // okay so mouseout works, but mouseleave doesn't. For reasons that probably make sense
+    //mouse out though triggers whenever I leave any element
+    console.log(`Moved! x:${x}, y:${y}`); */
+  // });
+  //}
 };
 
+
+
+
+const button_test = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: `stim_temp`,
+  choices: ['button 1', 'button 2'],
+  button_html: ['<button class="jspsych-btn mt-response-btn" style = "position:absolute; left: 0px; top: 0px">%choice%</button>', '<button class="jspsych-btn mt-response-btn" style = "position:absolute; right:0px; top: 0px">%choice%</button>'],
+  extensions: [
+    { type: jsPsychExtensionMouseTracking }
+  ]
+  /*on_start: function(trial) {
+    // temp = jsPsych.getDisplayElement()
+    window.addEventListener("mouseleave", function ({ clientX: x, clientY: y }) { // okay so mouseout works, but mouseleave doesn't. For reasons that probably make sense
+      //mouse out though triggers whenever I leave any element
+      console.log(`left! x:${x}, y:${y}`); 
+    });
+    window.addEventListener("mouseout", function ({ clientX: x, clientY: y }) { // okay so mouseout works, but mouseleave doesn't. For reasons that probably make sense
+      //mouse out though triggers whenever I leave any element
+      console.log(`Out! x:${x}, y:${y}`); // okay so one hack would be  to check if the out is occuring outside of the bounds of the screen. that's not ideal though
+    });
+    /*
+    trial.stimulus = 'Let us see if this works'; // this will change what stimulus is displayed in the trial
+    window.addEventListener("mousemove", function ({ clientX: x, clientY: y }) { // okay so mouseout works, but mouseleave doesn't. For reasons that probably make sense
+      //mouse out though triggers whenever I leave any element
+      console.log(`Moved! x:${x}, y:${y}`); */
+  // });
+  // } 
+};
 
 const start_screen = {
   type: jsPsychHtmlButtonResponsePES,
   stimulus: ``,
   choices: ['START'],
-  data: {
-    task: 'start'
-  },
-  button_html: '<button class="jspsych-btn" style = "position:absolute; bottom: 0px; left: 50%; transform:translate(-50%); font-weight: bold">%choice%</button>',
+  button_html: '<button class="jspsych-btn" style = "position:absolute; bottom: 0px; left: 50%">%choice%</button>',
 };
 
 
-timeline.push(start_screen)
-timeline.push(stim_change_test)
-timeline.push(start_screen)
-timeline.push(stim_change_test)
 
+/*
+function createBoundedRectangle() {
+  var canvas = document.createElement("canvas");
+  canvas.className = "canvas";
+  canvas.width = 400;
+  canvas.height = 300;
+
+  var ctx = canvas.getContext("2d");
+  ctx.fillStyle = "blue";
+  ctx.fillRect(50, 50, 300, 200); // Adjust the coordinates and size as needed
+  return canvas;
+}
+
+var displayRectangleTrial = {
+  type: jsPsychImageKeyboardResponse,
+  stimulus: function() {
+    var canvas = createBoundedRectangle();
+    return canvas.outerHTML;
+  },
+  choices: 32 // Prevent keyboard input
+};
+
+timeline.push(displayRectangleTrial);
+*/
+timeline.push(start_screen)
+timeline.push(stim_change_test)
 // timeline.push(start_screen)
 // timeline.push(button_test)
 // timeline.push(start_screen)
