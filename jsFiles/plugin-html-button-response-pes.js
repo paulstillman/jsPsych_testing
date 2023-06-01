@@ -252,6 +252,11 @@ var jsPsychHtmlButtonResponsePES = (function (jspsych) {
                     mouse_left_flag: mouse_left_flag,
                     init_slow_flag: init_slow_flag
                 };
+                if (trial.choices.length === 2) {
+                    trial_data.left_resp = trial.choices[0];
+                    trial_data.right_resp = trial.choices[1];
+                    trial_data.resp_txt = trial.choices[response.button];
+                }
                 disp_el_tmp.removeEventListener("mouseleave", mouseLeaveEventHandler)
                 window.removeEventListener("mousemove", mouseSlowEventHandler);
                 // clear the display
