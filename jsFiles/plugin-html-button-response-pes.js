@@ -97,7 +97,6 @@ var jsPsychHtmlButtonResponsePES = (function (jspsych) {
                 html += '<div class="mousemove-warning-msg" id="mouseslow_message">' + trial.slowmouse_message + "</div>";
             } 
 
-            // console.log(disp_el_tmp);
             // display stimulus
             html += '<div id="jspsych-html-button-response-stimulus">' + trial.stimulus + "</div>";
             //display buttons
@@ -210,15 +209,15 @@ var jsPsychHtmlButtonResponsePES = (function (jspsych) {
             let mouse_left_flag = 0;
             let init_slow_flag = 0;
 
-            var disp_el_tmp = document.getElementsByClassName("jspsych-display-element")[0];
+            var disp_el = document.getElementsByClassName("jspsych-display-element")[0];
             const mouseLeaveEventHandler = ({ clientX: x, clientY: y }) => {
                 document.getElementById("mouseout_message").style.visibility = 'visible';
-                disp_el_tmp.removeEventListener("mouseleave", mouseLeaveEventHandler)
+                disp_el.removeEventListener("mouseleave", mouseLeaveEventHandler)
                 mouse_left_flag = 1;
             }
 
             if (trial.mouseout_message !== null) {
-                disp_el_tmp.addEventListener("mouseleave", mouseLeaveEventHandler);
+                disp_el.addEventListener("mouseleave", mouseLeaveEventHandler);
             } 
             
             const trial_start_time = performance.now();
@@ -257,7 +256,7 @@ var jsPsychHtmlButtonResponsePES = (function (jspsych) {
                     trial_data.right_resp = trial.choices[1];
                     trial_data.resp_txt = trial.choices[response.button];
                 }
-                disp_el_tmp.removeEventListener("mouseleave", mouseLeaveEventHandler)
+                disp_el.removeEventListener("mouseleave", mouseLeaveEventHandler)
                 window.removeEventListener("mousemove", mouseSlowEventHandler);
                 // clear the display
                 display_element.innerHTML = "";

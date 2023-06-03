@@ -233,7 +233,7 @@ const save_data = {
   type: jsPsychPipe,
   action: "save",
   experiment_id: "v2ui0QxWeayJ",
-  filename: 'test.csv',
+  filename: fname,
   data_string: ()=>jsPsych.data.get().csv()
 };
 timeline.push(save_data);
