@@ -85,7 +85,6 @@ var jsPsychExtensionMouseTracking = (function () {
                     event_time - this.lastSampleTime >= this.minimumSampleTime) {
                     this.lastSampleTime = event_time;
                     this.currentTrialData.push({ x, y, t, event: "mousemove" });
-                    // this.jsPsych.getCurrentTrial().stimulus = 'HEY IT CHANGED HOORAY'
                 }
                 
             }; 
